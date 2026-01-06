@@ -1,6 +1,8 @@
-# docker-img-sha
+# docker-imgsha
 
 A Docker CLI plugin that addresses breaking changes in Docker Engine v29, where Image IDs changed from Config SHA to Manifest Digest. This plugin displays both identifiers to maintain backward compatibility for automation scripts and monitoring tools.
+
+> **Note on Naming**: The plugin is named `imgsha` (without hyphen) to comply with Docker CLI plugin naming requirements. Docker CLI plugins must match the regex `^[a-z][a-z0-9]*$` (lowercase letters and numbers only, no hyphens or underscores).
 
 ## Table of Contents
 
@@ -45,35 +47,35 @@ This plugin provides both identifiers, ensuring backward compatibility while sup
 
 ```bash
 # Linux (x86_64)
-curl -L https://github.com/bsalunke/dockplugin/releases/latest/download/docker-img-sha-linux-amd64 -o docker-img-sha
+curl -L https://github.com/bsalunke/dockplugin/releases/latest/download/docker-imgsha-linux-amd64 -o docker-imgsha
 
 # Linux (ARM64)
-curl -L https://github.com/bsalunke/dockplugin/releases/latest/download/docker-img-sha-linux-arm64 -o docker-img-sha
+curl -L https://github.com/bsalunke/dockplugin/releases/latest/download/docker-imgsha-linux-arm64 -o docker-imgsha
 
 # macOS (x86_64)
-curl -L https://github.com/bsalunke/dockplugin/releases/latest/download/docker-img-sha-darwin-amd64 -o docker-img-sha
+curl -L https://github.com/bsalunke/dockplugin/releases/latest/download/docker-imgsha-darwin-amd64 -o docker-imgsha
 
 # macOS (ARM64/Apple Silicon)
-curl -L https://github.com/bsalunke/dockplugin/releases/latest/download/docker-img-sha-darwin-arm64 -o docker-img-sha
+curl -L https://github.com/bsalunke/dockplugin/releases/latest/download/docker-imgsha-darwin-arm64 -o docker-imgsha
 ```
 
 2. **Make it executable**:
 
 ```bash
-chmod +x docker-img-sha
+chmod +x docker-imgsha
 ```
 
 3. **Install as Docker CLI plugin**:
 
 ```bash
 mkdir -p ~/.docker/cli-plugins
-mv docker-img-sha ~/.docker/cli-plugins/
+mv docker-imgsha ~/.docker/cli-plugins/
 ```
 
 4. **Verify installation**:
 
 ```bash
-docker img-sha version
+docker imgsha version
 ```
 
 ### Method 2: Build from Source
@@ -85,18 +87,18 @@ See [Building from Source](#building-from-source) section below.
 The plugin is invoked as a Docker subcommand:
 
 ```bash
-docker img-sha <command> [options]
+docker imgsha <command> [options]
 ```
 
 ## Commands
 
-### `docker img-sha list`
+### `docker imgsha list`
 
 List all local images with Config SHA and Manifest Digest.
 
 **Syntax:**
 ```bash
-docker img-sha list [OPTIONS]
+docker imgsha list [OPTIONS]
 ```
 
 **Options:**
@@ -115,13 +117,13 @@ postgres            16        sha256:g7h8i9...  sha256:j0k1l2... 379MB     1 wee
 redis               alpine    sha256:m3n4o5...  sha256:p6q7r8... 32.3MB    3 days ago
 ```
 
-### `docker img-sha inspect`
+### `docker imgsha inspect`
 
 Display detailed information about a specific image.
 
 **Syntax:**
 ```bash
-docker img-sha inspect <IMAGE> [OPTIONS]
+docker imgsha inspect <IMAGE> [OPTIONS]
 ```
 
 **Options:**
@@ -130,13 +132,13 @@ docker img-sha inspect <IMAGE> [OPTIONS]
 **Arguments:**
 - `<IMAGE>` - Image name, ID, or digest
 
-### `docker img-sha version`
+### `docker imgsha version`
 
 Display plugin version and compatibility information.
 
 **Syntax:**
 ```bash
-docker img-sha version
+docker imgsha version
 ```
 
 ## Examples
@@ -145,46 +147,46 @@ docker img-sha version
 
 **List all images:**
 ```bash
-docker img-sha list
+docker imgsha list
 ```
 
 **List with full SHA values:**
 ```bash
-docker img-sha list --no-trunc
+docker imgsha list --no-trunc
 ```
 
 **Show only Config SHAs (for scripting):**
 ```bash
-docker img-sha list --quiet
+docker imgsha list --quiet
 ```
 
 ### Filtering
 
 **Filter by repository:**
 ```bash
-docker img-sha list --filter "repository=nginx"
+docker imgsha list --filter "repository=nginx"
 ```
 
 **Filter by tag:**
 ```bash
-docker img-sha list --filter "tag=latest"
+docker imgsha list --filter "tag=latest"
 ```
 
 **Filter by architecture:**
 ```bash
-docker img-sha list --arch arm64
+docker imgsha list --arch arm64
 ```
 
 ### Output Formats
 
 **JSON output:**
 ```bash
-docker img-sha list --format json
+docker imgsha list --format json
 ```
 
 **Custom template:**
 ```bash
-docker img-sha list --format "{{.Repository}}:{{.Tag}} -> {{.ConfigSHA}}"
+docker imgsha list --format "{{.Repository}}:{{.Tag}} -> {{.ConfigSHA}}"
 ```
 
 Output:
@@ -197,12 +199,12 @@ postgres:16 -> sha256:g7h8i9j0k1l2...
 
 **Inspect a specific image:**
 ```bash
-docker img-sha inspect nginx:latest
+docker imgsha inspect nginx:latest
 ```
 
 **Inspect by Config SHA:**
 ```bash
-docker img-sha inspect sha256:a1b2c3d4e5f6...
+docker imgsha inspect sha256:a1b2c3d4e5f6...
 ```
 
 ## Building from Source
@@ -230,7 +232,7 @@ go mod download
 ```bash
 make build
 # Or without Make:
-go build -ldflags "-s -w" -o bin/docker-img-sha ./cmd/docker-img-sha
+go build -ldflags "-s -w" -o bin/docker-imgsha ./cmd/docker-imgsha
 ```
 
 4. **Install locally:**
@@ -238,8 +240,8 @@ go build -ldflags "-s -w" -o bin/docker-img-sha ./cmd/docker-img-sha
 make install
 # Or manually:
 mkdir -p ~/.docker/cli-plugins
-cp bin/docker-img-sha ~/.docker/cli-plugins/
-chmod +x ~/.docker/cli-plugins/docker-img-sha
+cp bin/docker-imgsha ~/.docker/cli-plugins/
+chmod +x ~/.docker/cli-plugins/docker-imgsha
 ```
 
 ### Cross-Platform Builds
@@ -250,11 +252,11 @@ make build-all
 ```
 
 This creates binaries in the `bin/` directory:
-- `docker-img-sha-linux-amd64`
-- `docker-img-sha-linux-arm64`
-- `docker-img-sha-darwin-amd64`
-- `docker-img-sha-darwin-arm64`
-- `docker-img-sha-windows-amd64.exe`
+- `docker-imgsha-linux-amd64`
+- `docker-imgsha-linux-arm64`
+- `docker-imgsha-darwin-amd64`
+- `docker-imgsha-darwin-arm64`
+- `docker-imgsha-windows-amd64.exe`
 
 ## Troubleshooting
 
@@ -280,7 +282,7 @@ Error: Permission denied while connecting to Docker daemon socket
 **Solution:**
 - Add your user to the `docker` group: `sudo usermod -aG docker $USER`
 - Log out and back in, or run: `newgrp docker`
-- Alternatively, run with sudo: `sudo docker img-sha list`
+- Alternatively, run with sudo: `sudo docker imgsha list`
 
 ### Plugin Not Found
 
@@ -290,8 +292,8 @@ docker: 'img-sha' is not a docker command.
 ```
 
 **Solution:**
-- Verify installation: `ls -la ~/.docker/cli-plugins/docker-img-sha`
-- Check permissions: `chmod +x ~/.docker/cli-plugins/docker-img-sha`
+- Verify installation: `ls -la ~/.docker/cli-plugins/docker-imgsha`
+- Check permissions: `chmod +x ~/.docker/cli-plugins/docker-imgsha`
 - Verify plugin is recognized: `docker plugin ls` (for extension plugins) or `docker --help` (should show img-sha)
 
 ### No Images Found / Empty Output
@@ -301,7 +303,7 @@ docker: 'img-sha' is not a docker command.
 **Solution:**
 - Pull some images first: `docker pull nginx`
 - Verify images exist: `docker images`
-- Check if you're listing all images: `docker img-sha list --all`
+- Check if you're listing all images: `docker imgsha list --all`
 
 ### Manifest Digest Shows "N/A"
 
@@ -345,7 +347,7 @@ The plugin respects standard Docker environment variables:
 Example:
 ```bash
 export DOCKER_HOST=tcp://remote-docker:2376
-docker img-sha list
+docker imgsha list
 ```
 
 ## Performance

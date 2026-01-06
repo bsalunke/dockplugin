@@ -1,4 +1,4 @@
-# Contributing to docker-img-sha
+# Contributing to docker-imgsha
 
 Thank you for your interest in contributing! This document provides guidelines for contributing to the project.
 
@@ -105,7 +105,7 @@ Update README with troubleshooting section
 
 ```
 dockplugin/
-├── cmd/docker-img-sha/    # Main application entry point
+├── cmd/docker-imgsha/    # Main application entry point
 ├── pkg/
 │   ├── client/            # Docker client wrapper
 │   ├── commands/          # CLI commands

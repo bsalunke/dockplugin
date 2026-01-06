@@ -1,7 +1,7 @@
 .PHONY: build clean install test lint help
 
 # Binary name
-BINARY_NAME=docker-img-sha
+BINARY_NAME=docker-imgsha
 BUILD_DIR=bin
 
 # Go parameters

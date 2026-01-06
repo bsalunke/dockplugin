@@ -1,0 +1,7 @@
+{
+  "SchemaVersion": "0.1.0",
+  "Vendor": "dockplugin",
+  "Version": "1.0.0",
+  "ShortDescription": "Display Docker images with Config SHA and Manifest Digest",
+  "URL": "https://github.com/bsalunke/dockplugin"
+}

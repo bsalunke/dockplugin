@@ -18,7 +18,7 @@ go.work
 /bin/
 /dist/
 /build/
-docker-img-sha
+/docker-img-sha
 
 # IDE
 .idea/
